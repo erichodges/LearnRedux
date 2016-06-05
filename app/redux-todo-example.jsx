@@ -8,6 +8,8 @@ var stateDefault = {
   todos: []
 };
 var reducer = (state = stateDefault, action) => {
+  console.log('New action', action);
+
   return state;
 };
 
