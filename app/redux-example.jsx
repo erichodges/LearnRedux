@@ -4,7 +4,7 @@ console.log('Starting Redux example');
 
 var reducer = (state = {name: 'Anonymous'}, action) => {
   // state = state || {name: 'Anonymous'};
-  console.log('New action', action);
+  
   switch (action.type) {
     case 'CHANGE_NAME':
       return {
@@ -22,7 +22,7 @@ console.log('currentState', currentState);
 
 store.dispatch({
   type: 'CHANGE_NAME',
-  NAME: 'Eric'
+  name: 'Eric'
 });
 
 console.log('Name should be Eric', store.getState());

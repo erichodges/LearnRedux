@@ -7,12 +7,28 @@ var stateDefault = {
   showCompleted: false,
   todos: []
 };
-var reducer = (state = stateDefault, action) => {
+var reducer = (state = {searchText: ''}, action) => {
   console.log('New action', action);
 
-  return state;
+  switch (action.type) {
+    case 'CHANGE_SEARCH_TEXT':
+      return {
+        ...state,
+        name: action.searchText
+      };
+      default:
+        return state;
+  }
 };
 
 var store = redux.createStore(reducer);
 
-console.log('currentState', store.getState());
+var currentState = store.getState();
+console.log('currentState', currentState);
+
+store.dispatch({
+  type: 'CHANGE_SEARCH_TEXT',
+  searchText: 'Dog'
+});
+
+console.log('searchText should be Dog', store.getState());
