@@ -7,28 +7,47 @@ var stateDefault = {
   showCompleted: false,
   todos: []
 };
-var reducer = (state = {searchText: ''}, action) => {
+var reducer = (state = stateDefault, action) => {
   console.log('New action', action);
 
   switch (action.type) {
     case 'CHANGE_SEARCH_TEXT':
       return {
         ...state,
-        name: action.searchText
+        searchText: action.searchText
       };
       default:
         return state;
   }
 };
 
-var store = redux.createStore(reducer);
+var store = redux.createStore(reducer, redux.compose(
+  window.devToolsExtension ? window.devToolsExtension() : f => f
+));
 
-var currentState = store.getState();
-console.log('currentState', currentState);
+// Subscribe to changes
+store.subscribe(() => {
+  var state = store.getState();
+
+  // console.log('searchText is', state.searchText);
+  document.getElementById('app').innerHTML = state.searchText;
+});
+
+// var currentState = store.getState();
+// console.log('currentState', store.getState());
 
 store.dispatch({
   type: 'CHANGE_SEARCH_TEXT',
   searchText: 'Dog'
 });
 
-console.log('searchText should be Dog', store.getState());
+store.dispatch({
+  type: 'CHANGE_SEARCH_TEXT',
+  searchText: 'GiGi'
+});
+
+store.dispatch({
+  type: 'CHANGE_SEARCH_TEXT',
+  searchText: 'Louie'
+});
+// console.log('searchText', store.getState());
